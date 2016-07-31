@@ -278,12 +278,71 @@
 <span id="234">234</span>
 <span id="235">235</span>
 <span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::<span class='ident'>RwLock</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>error</span>::<span class='ident'>Error</span>;
 
 <span class='kw'>use</span> <span class='ident'>iron</span>::<span class='ident'>prelude</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>iron</span>::{<span class='ident'>status</span>};
+<span class='kw'>use</span> <span class='ident'>iron</span>::<span class='ident'>status</span>;
 <span class='kw'>use</span> <span class='ident'>iron</span>::{<span class='ident'>AfterMiddleware</span>, <span class='ident'>typemap</span>};
 <span class='kw'>use</span> <span class='ident'>iron</span>::<span class='ident'>modifier</span>::<span class='ident'>Modifier</span>;
 <span class='kw'>use</span> <span class='ident'>plugin</span>::<span class='ident'>Plugin</span> <span class='kw'>as</span> <span class='ident'>PluginFor</span>;
@@ -297,13 +356,13 @@
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;serde_type&quot;</span>)]</span>
 <span class='kw'>use</span> <span class='ident'>serde_json</span>::<span class='ident'>value</span>::{<span class='self'>self</span>, <span class='ident'>Value</span> <span class='kw'>as</span> <span class='ident'>Json</span>};
 
-<span class='kw'>use</span> ::<span class='ident'>source</span>::{<span class='ident'>Source</span>, <span class='ident'>SourceError</span>};
+<span class='kw'>use</span> <span class='ident'>source</span>::{<span class='ident'>Source</span>, <span class='ident'>SourceError</span>};
 
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Template</span> {
     <span class='ident'>name</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>,
     <span class='ident'>content</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>,
-    <span class='ident'>value</span>: <span class='ident'>Json</span>
+    <span class='ident'>value</span>: <span class='ident'>Json</span>,
 }
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;serde_type&quot;</span>))]</span>
@@ -313,7 +372,7 @@
         <span class='ident'>Template</span> {
             <span class='ident'>name</span>: <span class='prelude-val'>Some</span>(<span class='ident'>name</span>.<span class='ident'>to_string</span>()),
             <span class='ident'>value</span>: <span class='ident'>value</span>.<span class='ident'>to_json</span>(),
-            <span class='ident'>content</span>: <span class='prelude-val'>None</span>
+            <span class='ident'>content</span>: <span class='prelude-val'>None</span>,
         }
     }
 
@@ -322,7 +381,7 @@
         <span class='ident'>Template</span> {
             <span class='ident'>name</span>: <span class='prelude-val'>None</span>,
             <span class='ident'>value</span>: <span class='ident'>value</span>.<span class='ident'>to_json</span>(),
-            <span class='ident'>content</span>: <span class='prelude-val'>Some</span>(<span class='ident'>content</span>.<span class='ident'>to_string</span>())
+            <span class='ident'>content</span>: <span class='prelude-val'>Some</span>(<span class='ident'>content</span>.<span class='ident'>to_string</span>()),
         }
     }
 }
@@ -334,7 +393,7 @@
         <span class='ident'>Template</span> {
             <span class='ident'>name</span>: <span class='prelude-val'>Some</span>(<span class='ident'>name</span>.<span class='ident'>to_string</span>()),
             <span class='ident'>value</span>: <span class='ident'>value</span>::<span class='ident'>to_value</span>(<span class='kw-2'>&amp;</span><span class='ident'>value</span>),
-            <span class='ident'>content</span>: <span class='prelude-val'>None</span>
+            <span class='ident'>content</span>: <span class='prelude-val'>None</span>,
         }
     }
 
@@ -343,14 +402,14 @@
         <span class='ident'>Template</span> {
             <span class='ident'>name</span>: <span class='prelude-val'>None</span>,
             <span class='ident'>value</span>: <span class='ident'>value</span>::<span class='ident'>to_value</span>(<span class='kw-2'>&amp;</span><span class='ident'>value</span>),
-            <span class='ident'>content</span>: <span class='prelude-val'>Some</span>(<span class='ident'>content</span>.<span class='ident'>to_string</span>())
+            <span class='ident'>content</span>: <span class='prelude-val'>Some</span>(<span class='ident'>content</span>.<span class='ident'>to_string</span>()),
         }
     }
 }
 
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>HandlebarsEngine</span> {
     <span class='kw'>pub</span> <span class='ident'>sources</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>Source</span> <span class='op'>+</span> <span class='ident'>Send</span> <span class='op'>+</span> <span class='ident'>Sync</span><span class='op'>&gt;&gt;</span>,
-    <span class='kw'>pub</span> <span class='ident'>registry</span>: <span class='ident'>RwLock</span><span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>Handlebars</span><span class='op'>&gt;&gt;</span>
+    <span class='kw'>pub</span> <span class='ident'>registry</span>: <span class='ident'>RwLock</span><span class='op'>&lt;</span><span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>Handlebars</span><span class='op'>&gt;&gt;</span>,
 }
 
 <span class='kw'>impl</span> <span class='ident'>typemap</span>::<span class='ident'>Key</span> <span class='kw'>for</span> <span class='ident'>HandlebarsEngine</span> {
@@ -367,9 +426,9 @@
     <span class='kw'>type</span> <span class='ident'>Error</span> <span class='op'>=</span> ();
 
     <span class='kw'>fn</span> <span class='ident'>eval</span>(<span class='ident'>resp</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Response</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Template</span>, ()<span class='op'>&gt;</span> {
-        <span class='kw'>match</span> <span class='ident'>resp</span>.<span class='ident'>extensions</span>.<span class='ident'>get</span>::<span class='op'>&lt;</span><span class='ident'>HandlebarsEngine</span><span class='op'>&gt;</span>(){
+        <span class='kw'>match</span> <span class='ident'>resp</span>.<span class='ident'>extensions</span>.<span class='ident'>get</span>::<span class='op'>&lt;</span><span class='ident'>HandlebarsEngine</span><span class='op'>&gt;</span>() {
             <span class='prelude-val'>Some</span>(<span class='ident'>t</span>) <span class='op'>=&gt;</span> <span class='prelude-val'>Ok</span>(<span class='ident'>t</span>.<span class='ident'>clone</span>()),
-            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(())
+            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(()),
         }
     }
 }
@@ -379,14 +438,14 @@
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='ident'>HandlebarsEngine</span> {
         <span class='ident'>HandlebarsEngine</span> {
             <span class='ident'>sources</span>: <span class='ident'>Vec</span>::<span class='ident'>new</span>(),
-            <span class='ident'>registry</span>: <span class='ident'>RwLock</span>::<span class='ident'>new</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>Handlebars</span>::<span class='ident'>new</span>()))
+            <span class='ident'>registry</span>: <span class='ident'>RwLock</span>::<span class='ident'>new</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>Handlebars</span>::<span class='ident'>new</span>())),
         }
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from</span>(<span class='ident'>reg</span>: <span class='ident'>Handlebars</span>) <span class='op'>-&gt;</span> <span class='ident'>HandlebarsEngine</span> {
         <span class='ident'>HandlebarsEngine</span> {
             <span class='ident'>sources</span>: <span class='ident'>Vec</span>::<span class='ident'>new</span>(),
-            <span class='ident'>registry</span>: <span class='ident'>RwLock</span>::<span class='ident'>new</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>reg</span>))
+            <span class='ident'>registry</span>: <span class='ident'>RwLock</span>::<span class='ident'>new</span>(<span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='ident'>reg</span>)),
         }
     }
 
@@ -406,17 +465,19 @@
 
 <span class='kw'>impl</span> <span class='ident'>AfterMiddleware</span> <span class='kw'>for</span> <span class='ident'>HandlebarsEngine</span> {
     <span class='kw'>fn</span> <span class='ident'>after</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, _: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Request</span>, <span class='kw-2'>mut</span> <span class='ident'>resp</span>: <span class='ident'>Response</span>) <span class='op'>-&gt;</span> <span class='ident'>IronResult</span><span class='op'>&lt;</span><span class='ident'>Response</span><span class='op'>&gt;</span> {
-        <span class='kw'>let</span> <span class='ident'>page_wrapper</span> <span class='op'>=</span> <span class='ident'>resp</span>.<span class='ident'>extensions</span>.<span class='ident'>remove</span>::<span class='op'>&lt;</span><span class='ident'>HandlebarsEngine</span><span class='op'>&gt;</span>()
-            .<span class='ident'>and_then</span>(<span class='op'>|</span><span class='ident'>h</span><span class='op'>|</span> {
-                <span class='kw'>let</span> <span class='ident'>hbs</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>registry</span>.<span class='ident'>read</span>().<span class='ident'>unwrap</span>();
-                <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='kw-2'>ref</span> <span class='ident'>name</span>) <span class='op'>=</span> <span class='ident'>h</span>.<span class='ident'>name</span> {
-                    <span class='kw'>return</span> <span class='prelude-val'>Some</span>(<span class='ident'>hbs</span>.<span class='ident'>render</span>(<span class='ident'>name</span>, <span class='kw-2'>&amp;</span><span class='ident'>h</span>.<span class='ident'>value</span>).<span class='ident'>map_err</span>(<span class='ident'>TemplateRenderError</span>::<span class='ident'>from</span>));
-                } <span class='kw'>else</span> <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='kw-2'>ref</span> <span class='ident'>content</span>) <span class='op'>=</span> <span class='ident'>h</span>.<span class='ident'>content</span> {
-                    <span class='kw'>return</span> <span class='prelude-val'>Some</span>(<span class='ident'>hbs</span>.<span class='ident'>template_render</span>(<span class='ident'>content</span>, <span class='kw-2'>&amp;</span><span class='ident'>h</span>.<span class='ident'>value</span>));
-                } <span class='kw'>else</span> {
-                    <span class='macro'>unreachable</span><span class='macro'>!</span>();
-                }
-            });
+        <span class='kw'>let</span> <span class='ident'>page_wrapper</span> <span class='op'>=</span> <span class='ident'>resp</span>.<span class='ident'>extensions</span>
+                               .<span class='ident'>remove</span>::<span class='op'>&lt;</span><span class='ident'>HandlebarsEngine</span><span class='op'>&gt;</span>()
+                               .<span class='ident'>and_then</span>(<span class='op'>|</span><span class='ident'>h</span><span class='op'>|</span> {
+                                   <span class='kw'>let</span> <span class='ident'>hbs</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>registry</span>.<span class='ident'>read</span>().<span class='ident'>unwrap</span>();
+                                   <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='kw-2'>ref</span> <span class='ident'>name</span>) <span class='op'>=</span> <span class='ident'>h</span>.<span class='ident'>name</span> {
+                                       <span class='kw'>return</span> <span class='prelude-val'>Some</span>(<span class='ident'>hbs</span>.<span class='ident'>render</span>(<span class='ident'>name</span>, <span class='kw-2'>&amp;</span><span class='ident'>h</span>.<span class='ident'>value</span>)
+                                                      .<span class='ident'>map_err</span>(<span class='ident'>TemplateRenderError</span>::<span class='ident'>from</span>));
+                                   } <span class='kw'>else</span> <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='kw-2'>ref</span> <span class='ident'>content</span>) <span class='op'>=</span> <span class='ident'>h</span>.<span class='ident'>content</span> {
+                                       <span class='kw'>return</span> <span class='prelude-val'>Some</span>(<span class='ident'>hbs</span>.<span class='ident'>template_render</span>(<span class='ident'>content</span>, <span class='kw-2'>&amp;</span><span class='ident'>h</span>.<span class='ident'>value</span>));
+                                   } <span class='kw'>else</span> {
+                                       <span class='macro'>unreachable</span><span class='macro'>!</span>();
+                                   }
+                               });
 
         <span class='kw'>match</span> <span class='ident'>page_wrapper</span> {
             <span class='prelude-val'>Some</span>(<span class='ident'>page_result</span>) <span class='op'>=&gt;</span> {
@@ -434,9 +495,7 @@
                     }
                 }
             }
-            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> {
-                <span class='prelude-val'>Ok</span>(<span class='ident'>resp</span>)
-            }
+            <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Ok</span>(<span class='ident'>resp</span>),
         }
     }
 
@@ -472,6 +531,7 @@
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;serde_type&quot;</span>))]</span>
     <span class='kw'>fn</span> <span class='ident'>test_resp_set</span>() {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>resp</span> <span class='op'>=</span> <span class='ident'>hello_world</span>().<span class='ident'>ok</span>().<span class='ident'>expect</span>(<span class='string'>&quot;response expected&quot;</span>);
 
@@ -479,16 +539,44 @@
         <span class='kw'>match</span> <span class='ident'>resp</span>.<span class='ident'>get</span>::<span class='op'>&lt;</span><span class='ident'>HandlebarsEngine</span><span class='op'>&gt;</span>() {
             <span class='prelude-val'>Ok</span>(<span class='ident'>h</span>) <span class='op'>=&gt;</span> {
                 <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>h</span>.<span class='ident'>name</span>.<span class='ident'>unwrap</span>(), <span class='string'>&quot;index&quot;</span>.<span class='ident'>to_string</span>());
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>h</span>.<span class='ident'>value</span>.<span class='ident'>as_object</span>().<span class='ident'>unwrap</span>()
-                           .<span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='string'>&quot;title&quot;</span>.<span class='ident'>to_string</span>()).<span class='ident'>unwrap</span>()
-                           .<span class='ident'>as_string</span>().<span class='ident'>unwrap</span>(),
+                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>h</span>.<span class='ident'>value</span>
+                            .<span class='ident'>as_object</span>()
+                            .<span class='ident'>unwrap</span>()
+                            .<span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='string'>&quot;title&quot;</span>.<span class='ident'>to_string</span>())
+                            .<span class='ident'>unwrap</span>()
+                            .<span class='ident'>as_string</span>()
+                            .<span class='ident'>unwrap</span>(),
                            <span class='string'>&quot;Handlebars on Iron&quot;</span>);
-            },
-            _ <span class='op'>=&gt;</span> <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;template expected&quot;</span>)
+            }
+            _ <span class='op'>=&gt;</span> <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;template expected&quot;</span>),
         }
     }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;serde_type&quot;</span>)]</span>
+    <span class='kw'>fn</span> <span class='ident'>test_resp_set</span>() {
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>resp</span> <span class='op'>=</span> <span class='ident'>hello_world</span>().<span class='ident'>ok</span>().<span class='ident'>expect</span>(<span class='string'>&quot;response expected&quot;</span>);
+
+        <span class='comment'>// use response plugin to retrieve a cloned template for testing</span>
+        <span class='kw'>match</span> <span class='ident'>resp</span>.<span class='ident'>get</span>::<span class='op'>&lt;</span><span class='ident'>HandlebarsEngine</span><span class='op'>&gt;</span>() {
+            <span class='prelude-val'>Ok</span>(<span class='ident'>h</span>) <span class='op'>=&gt;</span> {
+                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>h</span>.<span class='ident'>name</span>.<span class='ident'>unwrap</span>(), <span class='string'>&quot;index&quot;</span>.<span class='ident'>to_string</span>());
+                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>h</span>.<span class='ident'>value</span>
+                            .<span class='ident'>as_object</span>()
+                            .<span class='ident'>unwrap</span>()
+                            .<span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='string'>&quot;title&quot;</span>.<span class='ident'>to_string</span>())
+                            .<span class='ident'>unwrap</span>()
+                            .<span class='ident'>as_str</span>()
+                            .<span class='ident'>unwrap</span>(),
+                           <span class='string'>&quot;Handlebars on Iron&quot;</span>);
+            }
+            _ <span class='op'>=&gt;</span> <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;template expected&quot;</span>),
+        }
+    }
+
+
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>not</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;serde_type&quot;</span>))]</span>
     <span class='kw'>fn</span> <span class='ident'>test_resp_set2</span>() {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>resp</span> <span class='op'>=</span> <span class='ident'>hello_world2</span>().<span class='ident'>ok</span>().<span class='ident'>expect</span>(<span class='string'>&quot;response expected&quot;</span>);
 
@@ -496,23 +584,53 @@
         <span class='kw'>match</span> <span class='ident'>resp</span>.<span class='ident'>get</span>::<span class='op'>&lt;</span><span class='ident'>HandlebarsEngine</span><span class='op'>&gt;</span>() {
             <span class='prelude-val'>Ok</span>(<span class='ident'>h</span>) <span class='op'>=&gt;</span> {
                 <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>h</span>.<span class='ident'>content</span>.<span class='ident'>unwrap</span>(), <span class='string'>&quot;{{title}}&quot;</span>.<span class='ident'>to_string</span>());
-                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>h</span>.<span class='ident'>value</span>.<span class='ident'>as_object</span>().<span class='ident'>unwrap</span>()
-                           .<span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='string'>&quot;title&quot;</span>.<span class='ident'>to_string</span>()).<span class='ident'>unwrap</span>()
-                           .<span class='ident'>as_string</span>().<span class='ident'>unwrap</span>(),
+                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>h</span>.<span class='ident'>value</span>
+                            .<span class='ident'>as_object</span>()
+                            .<span class='ident'>unwrap</span>()
+                            .<span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='string'>&quot;title&quot;</span>.<span class='ident'>to_string</span>())
+                            .<span class='ident'>unwrap</span>()
+                            .<span class='ident'>as_string</span>()
+                            .<span class='ident'>unwrap</span>(),
                            <span class='string'>&quot;Handlebars on Iron&quot;</span>);
-            },
-            _ <span class='op'>=&gt;</span> <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;template expected&quot;</span>)
+            }
+            _ <span class='op'>=&gt;</span> <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;template expected&quot;</span>),
         }
     }
 
+    <span class='attribute'>#[<span class='ident'>test</span>]</span>
+    <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;serde_type&quot;</span>)]</span>
+    <span class='kw'>fn</span> <span class='ident'>test_resp_set2</span>() {
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>resp</span> <span class='op'>=</span> <span class='ident'>hello_world2</span>().<span class='ident'>ok</span>().<span class='ident'>expect</span>(<span class='string'>&quot;response expected&quot;</span>);
+
+        <span class='comment'>// use response plugin to retrieve a cloned template for testing</span>
+        <span class='kw'>match</span> <span class='ident'>resp</span>.<span class='ident'>get</span>::<span class='op'>&lt;</span><span class='ident'>HandlebarsEngine</span><span class='op'>&gt;</span>() {
+            <span class='prelude-val'>Ok</span>(<span class='ident'>h</span>) <span class='op'>=&gt;</span> {
+                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>h</span>.<span class='ident'>content</span>.<span class='ident'>unwrap</span>(), <span class='string'>&quot;{{title}}&quot;</span>.<span class='ident'>to_string</span>());
+                <span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>h</span>.<span class='ident'>value</span>
+                            .<span class='ident'>as_object</span>()
+                            .<span class='ident'>unwrap</span>()
+                            .<span class='ident'>get</span>(<span class='kw-2'>&amp;</span><span class='string'>&quot;title&quot;</span>.<span class='ident'>to_string</span>())
+                            .<span class='ident'>unwrap</span>()
+                            .<span class='ident'>as_str</span>()
+                            .<span class='ident'>unwrap</span>(),
+                           <span class='string'>&quot;Handlebars on Iron&quot;</span>);
+            }
+            _ <span class='op'>=&gt;</span> <span class='macro'>panic</span><span class='macro'>!</span>(<span class='string'>&quot;template expected&quot;</span>),
+        }
+    }
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_register_helper</span>() {
         <span class='kw'>let</span> <span class='ident'>hbs</span> <span class='op'>=</span> <span class='ident'>HandlebarsEngine</span>::<span class='ident'>new</span>();
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>reg</span> <span class='op'>=</span> <span class='ident'>hbs</span>.<span class='ident'>registry</span>.<span class='ident'>write</span>().<span class='ident'>unwrap</span>();
-        <span class='ident'>reg</span>.<span class='ident'>register_helper</span>(<span class='string'>&quot;ignore&quot;</span>, <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='op'>|</span>_: <span class='kw-2'>&amp;</span><span class='ident'>Context</span>, _: <span class='kw-2'>&amp;</span><span class='ident'>Helper</span>, _: <span class='kw-2'>&amp;</span><span class='ident'>Handlebars</span>, _: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>RenderContext</span><span class='op'>|</span> <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>RenderError</span><span class='op'>&gt;</span> {
-            <span class='prelude-val'>Ok</span>(())
-        }));
+        <span class='ident'>reg</span>.<span class='ident'>register_helper</span>(<span class='string'>&quot;ignore&quot;</span>,
+                            <span class='ident'>Box</span>::<span class='ident'>new</span>(<span class='op'>|</span>_: <span class='kw-2'>&amp;</span><span class='ident'>Context</span>,
+                                      _: <span class='kw-2'>&amp;</span><span class='ident'>Helper</span>,
+                                      _: <span class='kw-2'>&amp;</span><span class='ident'>Handlebars</span>,
+                                      _: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>RenderContext</span><span class='op'>|</span>
+                                      <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>RenderError</span><span class='op'>&gt;</span> {
+                                <span class='prelude-val'>Ok</span>(())
+                            }));
     }
 }
 </pre>
